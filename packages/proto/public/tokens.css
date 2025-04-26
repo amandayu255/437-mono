@@ -16,7 +16,6 @@
   --color-border: #bdd7cc;
 
   /* Font */
-  /* --font-family-base: "Georgia", "Times New Roman", serif; */
-  --font-family-base: 'Libre Baskerville', serif;
-
+  --font-family-base: "Karla", sans-serif;
+  --font-family-display: "DM Serif Display", serif;
 }
