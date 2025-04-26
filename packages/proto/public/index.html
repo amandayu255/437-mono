@@ -3,12 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <title>Music App</title>
+    <link rel="stylesheet" href="/tokens.css" />
+    <link rel="stylesheet" href="/page.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>Welcome to Musica</h1>
-    <ul>
-      <li><a href="user.html">User: Amanda Yu</a></li>
-      <li><a href="playlist.html">Playlist: Pop Playlist</a></li>
-    </ul>
+    <header>
+      <h1>Welcome to Musica</h1>
+    </header>
+
+    <main>
+      <section>
+        <ul>
+          <li><a href="user.html">User: Amanda Yu</a></li>
+          <li><a href="playlist.html">Playlist: Pop Playlist</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <script>
+      window.addEventListener("load", () => {
+        document.body.classList.add("fade-in");
+      });
+    </script>
   </body>
 </html>
