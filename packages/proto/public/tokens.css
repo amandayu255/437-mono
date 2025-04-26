@@ -1,0 +1,22 @@
+:root {
+  /* Backgrounds */
+  --color-background-page: #f5fdf6; /* light mint cream */
+  --color-background-header: #d0eadf; /* soft eucalyptus green */
+
+  /* Text Colors */
+  --color-text-default: #2e4635; /* rich moss green */
+  --color-text-header: #1b2e24; /* darker forest green */
+
+  /* Accent + Links */
+  --color-accent: #6a9c89; /* dusty sage */
+  --color-link: #4a7763; /* muted teal-green */
+  --color-link-hover: #88c9b5; /* light herbal mint */
+
+  /* Borders */
+  --color-border: #bdd7cc;
+
+  /* Font */
+  /* --font-family-base: "Georgia", "Times New Roman", serif; */
+  --font-family-base: 'Libre Baskerville', serif;
+
+}
