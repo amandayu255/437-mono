@@ -100,6 +100,12 @@ svg.icon {
   margin-right: 0.5rem;
 }
 
+.icon {
+  width: 1em;
+  height: 1em;
+}
+
+
 .toggle-slider {
   background-color: var(--color-border);
 }
