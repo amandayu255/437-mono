@@ -25,3 +25,15 @@
   --space-md: 2rem;
   --space-lg: 4rem;
 }
+
+/* Dark Mode */
+body.dark-mode {
+  --color-background-page: #0f2d25;
+  --color-background-header: #1c3b32;
+  --color-text-default: #e6f2ed;
+  --color-text-header: #f0fdf7;
+  --color-accent: #88c9b5;
+  --color-link: #63a191; 
+  --color-link-hover: #a8e3d3;
+  --color-border: #2a4c42;
+}

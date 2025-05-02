@@ -100,6 +100,30 @@ svg.icon {
   margin-right: 0.5rem;
 }
 
+.toggle-slider {
+  background-color: var(--color-border);
+}
+
+.toggle-slider::before {
+  background-color: var(--color-accent);
+}
+
+.toggle-input:checked + .toggle-slider {
+  background-color: var(--color-link);
+}
+
+.toggle-input:checked + .toggle-slider::before {
+  background-color: var(--color-link-hover);
+}
+
+body.dark-mode .toggle-slider {
+  background-color: var(--color-border);
+}
+
+body.dark-mode .toggle-slider::before {
+  background-color: var(--color-accent);
+}
+
 @media (max-width: 768px) {
   main {
     grid-template-columns: repeat(6, 1fr);
