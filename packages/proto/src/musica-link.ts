@@ -1,43 +1,51 @@
 import { html, css, LitElement } from "lit";
-import reset from "./styles/reset.css.ts";
 
 export class MusicaLinkElement extends LitElement {
-  override render() {
-    const href = this.getAttribute("href") ?? "#";
-    const label = this.getAttribute("label") ?? "";
-
-    return html`
-      <li>
-        <a href="${href}">${label}</a>
-      </li>
-    `;
-  }
-
-  static styles = [
-    reset.styles,
-    css`
+  static styles = css`
     :host {
       display: block;
       font-family: var(--font-family-base, sans-serif);
+      margin-bottom: 1rem;
     }
 
-    li {
-      list-style: none; /* 🚫 removes the bullet point */
-    }
-
-    a {
-      color: var(--color-link);
+    .card {
+      display: block;
+      padding: 1.25rem;
+      border: 1.5px solid var(--color-border);
+      border-radius: 12px;
+      background-color: var(--color-background-header);
+      color: var(--color-text-default);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
       text-decoration: none;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      background-color: var(--color-link-hover);
+    }
+
+    .label {
+      font-size: 1.1rem;
       font-weight: bold;
-      transition: color 0.3s ease, transform 0.2s ease;
+      color: var(--color-text-default);
     }
+  `;
 
-    a:hover {
-      color: var(--color-link-hover);
-      transform: scale(1.05);
-      text-decoration: underline;
-    }
-  `];
+  static properties = {
+    href: { type: String },
+    label: { type: String },
+  };
+
+  href = "#";
+  label = "";
+
+  render() {
+    return html`
+      <a class="card" href=${this.href}>
+        <div class="label">${this.label}</div>
+      </a>
+    `;
+  }
 }
-
-customElements.define("musica-link", MusicaLinkElement);
