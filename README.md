@@ -2,4 +2,4 @@
 
 cd packages/proto
 
-npm start 
+npm run dev 
