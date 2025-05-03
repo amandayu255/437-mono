@@ -48,9 +48,10 @@ h2 {
 
 /* Main content section */
 main {
+  display: flex;
+  justify-content: center;
   padding: 2rem;
-  text-align: center;
-  max-width: 600px;
+  max-width: 100%;
 }
 
 /* Links */
@@ -78,6 +79,8 @@ li {
 }
 
 section {
+  width: 100%;
+  max-width: 900px;
   background: #ffffff;
   border: 1.5px solid var(--color-border);
   border-radius: 10px;
@@ -135,6 +138,6 @@ body.dark-mode .toggle-slider::before {
     grid-template-columns: repeat(6, 1fr);
   }
   section {
-    grid-column: span 6;
+    padding: 1.5rem;
   }
 }
