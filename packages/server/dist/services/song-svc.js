@@ -22,6 +22,7 @@ __export(song_svc_exports, {
 });
 module.exports = __toCommonJS(song_svc_exports);
 var import_mongoose = require("mongoose");
+var import_mongoose2 = require("mongoose");
 const SongSchema = new import_mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
@@ -36,9 +37,27 @@ const SongModel = (0, import_mongoose.model)("Song", SongSchema);
 function index() {
   return SongModel.find();
 }
-function get(title) {
-  return SongModel.find({ title }).then((list) => list[0]).catch((err) => {
-    throw `${title} Not Found`;
+function get(id) {
+  return SongModel.findById(new import_mongoose2.Types.ObjectId(id)).then((result) => {
+    if (!result) throw "Song not found";
+    return result;
   });
 }
-var song_svc_default = { index, get };
+function create(json) {
+  const t = new SongModel(json);
+  return t.save();
+}
+function update(id, song) {
+  return SongModel.findByIdAndUpdate(id, song, {
+    new: true
+  }).then((updated) => {
+    if (!updated) throw `${id} not updated`;
+    else return updated;
+  });
+}
+function remove(id) {
+  return SongModel.findByIdAndDelete(id).then((deleted) => {
+    if (!deleted) throw `${id} not deleted`;
+  });
+}
+var song_svc_default = { index, get, create, update, remove };

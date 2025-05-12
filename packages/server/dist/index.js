@@ -25,12 +25,15 @@ var import_express = __toESM(require("express"));
 var import_dotenv = __toESM(require("dotenv"));
 var import_mongo = require("./services/mongo");
 var import_song_svc = __toESM(require("./services/song-svc"));
+var import_songs = __toESM(require("./routes/songs"));
 import_dotenv.default.config();
 (0, import_mongo.connect)("musica");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
+app.use(import_express.default.json());
+app.use("/api/songs", import_songs.default);
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
