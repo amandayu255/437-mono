@@ -1,5 +1,7 @@
 import { LitElement, html, css } from "lit";
 import { property, state } from "lit/decorators.js";
+import { Observer } from "@calpoly/mustang";
+import type { Auth } from "@calpoly/mustang";
 
 interface Song {
   title: string;
@@ -9,17 +11,35 @@ interface Song {
   link: string;
 }
 
+interface AuthUser extends Auth.User {
+  token: string;
+}
+
 export class MusicaViewerElement extends LitElement {
   @property() src?: string;
   @state() songs: Song[] = [];
 
+  _authObserver = new Observer<Auth.Model>(this, "blazing:auth");
+  _user?: Auth.User;
+
   connectedCallback() {
     super.connectedCallback();
-    if (this.src) this.hydrate(this.src);
+    this._authObserver.observe((auth) => {
+      this._user = auth.user;
+      if (this.src) this.hydrate(this.src);
+    });
+  }
+
+  get authorization() {
+    return this._user?.authenticated
+      ? { Authorization: `Bearer ${(this._user as AuthUser).token}` }
+      : undefined;
   }
 
   async hydrate(src: string) {
-    const res = await fetch(src);
+    const res = await fetch(src, {
+      headers: this.authorization,
+    });
     const json = await res.json();
     this.songs = json as Song[];
   }
