@@ -23,10 +23,27 @@
     <script type="module" src="/scripts/darkmode.js"></script>
 
     <script type="module" src="/src/main.ts"></script>
+
+    <script type="module">
+      import { define, Auth } from "@calpoly/mustang";
+      import { HeaderElement } from "/scripts/header.js";
+    
+      define({
+        "blz-header": HeaderElement,
+        "mu-auth": Auth.Provider
+      });
+    
+      HeaderElement.initializeOnce();
+    </script>
+
+
   </head>
+
   <body>
-    <header>
-      <h1>Welcome to Musica</h1>
+  <mu-auth provides="blazing:auth">
+    <blz-header>
+      <a href="/" slot="actuator">Welcome to Musica</a>
+    </blz-header>
 
       <label class="toggle-label" id="dark-mode-toggle">
         <input type="checkbox" class="toggle-input" autocomplete="off" />
@@ -63,5 +80,6 @@
         document.body.classList.toggle("dark-mode", event.detail.dark);
       });
     </script>
+    </mu-auth>
   </body>
 </html>
