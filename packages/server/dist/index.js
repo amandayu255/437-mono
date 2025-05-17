@@ -26,16 +26,22 @@ var import_dotenv = __toESM(require("dotenv"));
 var import_mongo = require("./services/mongo");
 var import_song_svc = __toESM(require("./services/song-svc"));
 var import_songs = __toESM(require("./routes/songs"));
+var import_auth = __toESM(require("./routes/auth"));
+var import_path = __toESM(require("path"));
 import_dotenv.default.config();
 (0, import_mongo.connect)("musica");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
-const staticDir = process.env.STATIC || "public";
+const staticDir = import_path.default.resolve(__dirname, "../../proto/dist");
 app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
-app.use("/api/songs", import_songs.default);
+app.use("/api/songs", import_auth.authenticateUser, import_songs.default);
+app.use("/auth", import_auth.default);
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
+});
+app.get("/login", (_, res) => {
+  res.sendFile(import_path.default.join(staticDir, "login.html"));
 });
 app.get("/songs", async (req, res) => {
   try {
