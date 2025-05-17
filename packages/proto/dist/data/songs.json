@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Lush Life",
+    "artist": "Zara Larsson",
+    "album": "So Good",
+    "cover": "/images/zara.jpg",
+    "link": "/song/lush-life.html"
+  },
+  {
+    "title": "Blinding Lights",
+    "artist": "The Weeknd",
+    "album": "After Hours",
+    "cover": "/images/weeknd.jpg",
+    "link": "/song/blinding-lights.html"
+  }
+]
