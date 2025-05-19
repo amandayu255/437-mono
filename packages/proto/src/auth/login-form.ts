@@ -26,16 +26,53 @@ export class LoginFormElement extends LitElement {
   }
 
   static styles = css`
+    :host {
+      display: block;
+    }
+
     form {
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      max-width: 300px;
+      max-width: 320px;
       margin: auto;
+      padding: 1rem;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      font-weight: 600;
+      font-size: 0.9rem;
+      gap: 0.5rem;
+    }
+
+    input {
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: var(--color-primary, #00449e);
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 0.25rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
     .error {
-      color: red;
+      color: var(--color-error, red);
+      font-weight: bold;
+      text-align: center;
     }
   `;
 
@@ -92,8 +129,15 @@ export class LoginFormElement extends LitElement {
             composed: true,
             detail: ["auth/signin", { token, redirect: this.redirect }],
           });
+          
           console.log("dispatching message", customEvent);
-          this.dispatchEvent(customEvent);
+          this.dispatchEvent(
+            new CustomEvent("auth:message", {
+              bubbles: true,
+              composed: true,
+              detail: ["auth/signin", { token, redirect: this.redirect }],
+            })
+          );
         })
         .catch((error: Error) => {
           console.log(error);
