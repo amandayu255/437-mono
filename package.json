@@ -16,7 +16,10 @@
     "url": "https://github.com/amandayu255/437-mono/issues"
   },
   "homepage": "https://github.com/amandayu255/437-mono#readme",
-    "workspaces": [
-        "packages/*"
-    ]
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "vite-tsconfig-paths": "^5.1.4"
+  }
 }
