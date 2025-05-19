@@ -1,3 +1,22 @@
+# Node
 node_modules/
-packages/server/.env
-echo "dist/" >> .gitignore
+dist/
+.env
+.env.local
+npm-debug.log*
+
+# VS Code
+.vscode/
+
+# OS junk
+.DS_Store
+
+# Build output
+*.tsbuildinfo
+coverage/
+.next/
+.turbo/
+
+# Logs
+logs
+*.log
