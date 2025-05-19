@@ -70,7 +70,7 @@ export class HeaderElement extends LitElement {
         return html`
       <header>
         <a slot="actuator">
-          Hello, ${this.userid || "traveler"}
+          Hello, ${this.userid || "musicas"}
         </a>
         <nav>
           ${this.loggedIn
