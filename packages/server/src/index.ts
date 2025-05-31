@@ -15,10 +15,11 @@ const port = process.env.PORT || 3000;
 // const staticDir = process.env.STATIC || "public";
 const staticDir = path.resolve(__dirname, "../../proto/dist");
 
-app.use(express.static(staticDir));
 app.use(express.json());
 app.use("/api/songs", authenticateUser, songs);
 app.use("/auth", auth);
+app.use(express.static(staticDir));
+app.use(express.static("dist"));
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
