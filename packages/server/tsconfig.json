@@ -3,10 +3,9 @@
     "target": "ESNext",
     "module": "ESNext",
     "baseUrl": "./src",
-    "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*.ts"],
