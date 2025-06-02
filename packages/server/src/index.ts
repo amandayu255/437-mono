@@ -5,7 +5,7 @@ import Songs from "./services/song-svc";
 import songs from "./routes/songs";
 import auth, { authenticateUser } from "./routes/auth";
 import path from "path";
-
+import fs from "node:fs/promises";
 
 dotenv.config();
 connect("musica");
@@ -49,4 +49,10 @@ app.get("/songs/:title", async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).send("Error retrieving song.");
   }
+});
+
+app.use("/app", async (_req, res) => {
+  const indexHtml = path.resolve(staticDir, "index.html");
+  const html = await fs.readFile(indexHtml, "utf8");
+  res.send(html);
 });
