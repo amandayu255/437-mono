@@ -1,15 +1,20 @@
-import { LitElement, html, css } from "lit";
+import { html, css } from "lit";
 import { property, state } from "lit/decorators.js";
+import { define, View } from "@calpoly/mustang";
 
-interface Song {
-  title: string;
-  artist: string;
-  albumArt: string;
-}
+import { Msg } from "../messages";
+import { Model } from "../model";
+import { Song } from "server/models";
 
-export class PlaylistViewElement extends LitElement {
+export class PlaylistViewElement extends View<Model, Msg> {
   @property({ attribute: "playlist-id" }) playlistId = "";
-  @state() songs: Song[] = [];
+
+  @state()
+  get songs(): Song[] {
+    return this.model.selectedPlaylist?.songIds
+      ?.map((id) => this.model.songs.find((s) => s._id === id))
+      .filter((s): s is Song => !!s) ?? [];
+  }
 
   static styles = css`
     .container {
@@ -34,27 +39,25 @@ export class PlaylistViewElement extends LitElement {
     }
   `;
 
-  connectedCallback() {
-    super.connectedCallback();
-    this.loadSongs();
+  constructor() {
+    super("musica:model");
   }
 
-  async loadSongs() {
-    const res = await fetch(`/api/playlists/${this.playlistId}`);
-    if (res.ok) {
-      const json = await res.json();
-      this.songs = json.songs;
+  attributeChangedCallback(name: string, oldVal: string, newVal: string) {
+    super.attributeChangedCallback(name, oldVal, newVal);
+    if (name === "playlist-id" && oldVal !== newVal && newVal) {
+      this.dispatchMessage(["playlist/select", { playlistId: newVal }]);
     }
   }
 
   render() {
     return html`
       <div class="container">
-        <h2>Playlist: ${this.playlistId}</h2>
+        <h2>Playlist: ${this.model.selectedPlaylist?.name ?? this.playlistId}</h2>
         ${this.songs.map(
           (song) => html`
             <div class="song">
-              <img src=${song.albumArt} />
+              <img src=${song.url ?? ""} />
               <div class="song-details">
                 <strong>${song.title}</strong>
                 <span>${song.artist}</span>
@@ -68,4 +71,4 @@ export class PlaylistViewElement extends LitElement {
   }
 }
 
-customElements.define("playlist-view", PlaylistViewElement);
+define({ "playlist-view": PlaylistViewElement });
