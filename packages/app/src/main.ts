@@ -1,23 +1,19 @@
-import { Auth, define, History, Switch } from "@calpoly/mustang";
+import { Auth, History, Switch, Store, define } from "@calpoly/mustang";
 import { html } from "lit";
+import { Msg } from "./messages";
+import { Model, init } from "./model";
+import update from "./update";
+import { SongsViewElement } from "./views/songs-view";
 import { HeaderElement } from "./components/blazing-header";
-import "./views/home-view";
-import "./views/playlist-view";
 
 const routes = [
   {
-    path: "/app/playlist/:id",
-    view: (params: Switch.Params) => html`
-      <playlist-view playlist-id=${params.id}></playlist-view>
-    `,
-  },
-  {
-    path: "/app",
-    view: () => html` <home-view></home-view> `,
+    path: "/app/songs",
+    view: () => html`<songs-view></songs-view>`,
   },
   {
     path: "/",
-    redirect: "/app",
+    redirect: "/app/songs",
   },
 ];
 
@@ -29,5 +25,11 @@ define({
       super(routes, "musica:history", "musica:auth");
     }
   },
+  "mu-store": class AppStore extends Store.Provider<Model, Msg> {
+    constructor() {
+      super(update, init, "musica:auth");
+    }
+  },
+  "songs-view": SongsViewElement,
   "blazing-header": HeaderElement,
 });
