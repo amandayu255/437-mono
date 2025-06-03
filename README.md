@@ -13,3 +13,12 @@ lsof -i :3000
 kill -9 <pid>
 
 rm -rf dist/
+
+  // "scripts": {
+  //   "dev": "nodemon",
+  //   "build": "npx etsc",
+  //   "start": "npm run build && npm run start:node",
+  //   "start:node": "node dist/index.js",
+  //   "start:proto": "cross-env STATIC=../proto/public npm run start",
+  //   "check": "tsc --noEmit"
+  // },
