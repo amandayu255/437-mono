@@ -23,18 +23,20 @@
   <body>
     <mu-history provides="musica:history">
       <mu-auth provides="musica:auth" redirect="/login.html">
-        <article class="page">
-          <blz-header>
-            <a href="/" slot="actuator">Welcome to Musica</a>
-          </blz-header>
+        <mu-store provides="musica:model">
+          <article class="page">
+            <blz-header>
+              <a href="/app/songs" slot="actuator">Welcome to Musica</a>
+            </blz-header>
 
-          <label class="toggle-label" id="dark-mode-toggle">
-            <input type="checkbox" class="toggle-input" autocomplete="off" />
-            <span class="toggle-slider">Dark Mode</span>
-          </label>
+            <label class="toggle-label" id="dark-mode-toggle">
+              <input type="checkbox" class="toggle-input" autocomplete="off" />
+              <span class="toggle-slider">Dark Mode</span>
+            </label>
 
-          <mu-switch></mu-switch>
-        </article>
+            <mu-switch></mu-switch>
+          </article>
+        </mu-store>
       </mu-auth>
     </mu-history>
     <script type="module" src="/src/main.ts"></script>
