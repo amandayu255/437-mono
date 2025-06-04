@@ -11,9 +11,13 @@ export class PlaylistViewElement extends View<Model, Msg> {
 
   @state()
   get songs(): Song[] {
-    return this.model.selectedPlaylist?.songIds
-      ?.map((id) => this.model.songs.find((s) => s._id === id))
-      .filter((s): s is Song => !!s) ?? [];
+    return (
+      this.model.selectedPlaylist?.songIds
+        ?.map((id) =>
+          this.model.songs.find((s) => s._id?.toString() === id)
+        )
+        .filter((s): s is Song => !!s) ?? []
+    );
   }
 
   static styles = css`
@@ -43,6 +47,16 @@ export class PlaylistViewElement extends View<Model, Msg> {
     super("musica:model");
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    // Load songs globally (only once) in case not already loaded
+    this.dispatchMessage(["songs/load", {}]);
+
+    if (this.playlistId) {
+      this.dispatchMessage(["playlist/select", { playlistId: this.playlistId }]);
+    }
+  }
+
   attributeChangedCallback(name: string, oldVal: string, newVal: string) {
     super.attributeChangedCallback(name, oldVal, newVal);
     if (name === "playlist-id" && oldVal !== newVal && newVal) {
@@ -53,7 +67,9 @@ export class PlaylistViewElement extends View<Model, Msg> {
   render() {
     return html`
       <div class="container">
-        <h2>Playlist: ${this.model.selectedPlaylist?.name ?? this.playlistId}</h2>
+        <h2>
+          Playlist: ${this.model.selectedPlaylist?.name ?? this.playlistId}
+        </h2>
         ${this.songs.map(
           (song) => html`
             <div class="song">
