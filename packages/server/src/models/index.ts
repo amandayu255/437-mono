@@ -5,6 +5,7 @@ export interface Song {
   year?: number;
   genre?: string;
   url?: string;
+  cover?: string;
   _id?: string;
 }
 
@@ -15,3 +16,5 @@ export interface Playlist {
   _id?: string;
 }
 
+export type { Album } from "./album";
+export type { Genre } from "./genre";
