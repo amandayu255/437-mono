@@ -6,6 +6,9 @@ import songs from "./routes/songs";
 import auth, { authenticateUser } from "./routes/auth";
 import path from "path";
 import fs from "node:fs/promises";
+import albumRoutes from "./routes/album";
+import playlistRoutes from "./routes/playlist";
+import genreRoutes from "./routes/genre";
 
 dotenv.config();
 connect("musica");
@@ -16,10 +19,14 @@ const port = process.env.PORT || 3000;
 const staticDir = path.resolve(__dirname, "../../proto/dist");
 
 app.use(express.json());
-app.use("/api/songs", authenticateUser, songs);
+app.use("/api/songs", songs);
 app.use("/auth", auth);
 app.use(express.static(staticDir));
 app.use(express.static("dist"));
+app.use("/api/albums", albumRoutes);
+app.use("/uploads", express.static("uploads"));
+app.use("/api/playlists", playlistRoutes);
+app.use("/api/genres", genreRoutes);
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
