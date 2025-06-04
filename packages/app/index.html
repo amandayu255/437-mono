@@ -18,6 +18,18 @@
       href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Karla:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
+
+    <style>
+      .welcome-link {
+        color: var(--color-header-link);
+        text-decoration: none;
+        font-weight: bold;
+        position: absolute;
+        top: 1.5rem;
+        left: 1rem;
+      }
+    </style>
+    
   </head>
 
   <body>
@@ -26,7 +38,7 @@
         <mu-store provides="musica:model">
           <article class="page">
             <blz-header>
-              <a href="/app/songs" slot="actuator">Welcome to Musica</a>
+              <a href="/app/songs" slot="actuator" class="welcome-link">Welcome to Musica</a>
             </blz-header>
 
             <label class="toggle-label" id="dark-mode-toggle">
@@ -37,6 +49,26 @@
             <mu-switch></mu-switch>
           </article>
         </mu-store>
+
+        <script type="module">
+          const checkbox = document.querySelector("#dark-mode-toggle input");
+    
+          checkbox.addEventListener("change", (event) => {
+            const isDark = event.target.checked;
+    
+            const toggleEvent = new CustomEvent("darkmode:toggle", {
+              bubbles: true,
+              detail: { dark: isDark },
+            });
+    
+            document.body.dispatchEvent(toggleEvent);
+          });
+    
+          document.body.addEventListener("darkmode:toggle", (event) => {
+            document.body.classList.toggle("dark-mode", event.detail.dark);
+          });
+        </script>
+
       </mu-auth>
     </mu-history>
     <script type="module" src="/src/main.ts"></script>
