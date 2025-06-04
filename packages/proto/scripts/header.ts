@@ -2,8 +2,16 @@ import { html, css, LitElement } from "lit";
 import { state } from "lit/decorators.js";
 import { Observer, Events } from "@calpoly/mustang";
 
+interface AuthStatus {
+  user?: {
+    authenticated: boolean;
+    username: string;
+    [key: string]: unknown;
+  };
+}
+
 export class HeaderElement extends LitElement {
-    static styles = css`
+  static styles = css`
     header {
       display: flex;
       justify-content: space-between;
@@ -13,7 +21,8 @@ export class HeaderElement extends LitElement {
       border-bottom: 1px solid #ccc;
     }
 
-    nav a, nav button {
+    nav a,
+    nav button {
       margin-left: 1rem;
       font-size: 1rem;
       background: none;
@@ -27,62 +36,56 @@ export class HeaderElement extends LitElement {
     }
   `;
 
-    _authObserver = new Observer(this, "blazing:auth");
+  _authObserver = new Observer(this, "blazing:auth");
 
-    @state()
-    loggedIn = false;
+  loggedIn = false;
+  userid?: string;
 
-    @state()
-    userid;
+  connectedCallback() {
+    super.connectedCallback();
 
-    connectedCallback() {
-        super.connectedCallback();
+    this._authObserver.observe((auth: AuthStatus) => {
+      const { user } = auth;
+      if (user?.authenticated) {
+        this.loggedIn = true;
+        this.userid = user.username;
+      } else {
+        this.loggedIn = false;
+        this.userid = undefined;
+      }
+    });
+  }
 
-        this._authObserver.observe((auth) => {
-            const { user } = auth;
-            if (user && user.authenticated) {
-                this.loggedIn = true;
-                this.userid = user.username;
-            } else {
-                this.loggedIn = false;
-                this.userid = undefined;
-            }
-        });
-    }
-
-    renderSignOutButton() {
-        return html`
+  renderSignOutButton() {
+    return html`
       <button
-        @click=${(e) =>
-                Events.relay(e, "auth:message", ["auth/signout"])}>
+        @click=${(e: Event) =>
+          Events.relay(e, "auth:message", ["auth/signout"])}
+      >
         Sign Out
       </button>
     `;
-    }
+  }
 
-    renderSignInButton() {
-        return html`
-      <a href="/login.html">Sign In…</a>
-    `;
-    }
+  renderSignInButton() {
+    return html`<a href="/login.html">Sign In…</a>`;
+  }
 
-    render() {
-        return html`
+  render() {
+    return html`
       <header>
-        <a slot="actuator">
-          Hello, ${this.userid || "musicas"}
-        </a>
+        <a slot="actuator"> Hello, ${this.userid || "musicas"} </a>
         <nav>
           ${this.loggedIn
-                ? this.renderSignOutButton()
-                : this.renderSignInButton()}
+            ? this.renderSignOutButton()
+            : this.renderSignInButton()}
         </nav>
       </header>
       <slot></slot>
     `;
-    }
+  }
 
-    static initializeOnce() { }
+  static initializeOnce() {}
 }
 
 customElements.define("blz-header", HeaderElement);
