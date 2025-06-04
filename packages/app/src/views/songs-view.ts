@@ -24,10 +24,10 @@ export class SongsViewElement extends View<Model, Msg> {
     return html`
       <h2>Song List</h2>
       <ul>
-        ${this.songs.map(
+        ${(this.songs ?? []).map(
           (song) => html`<li>${song.title} by ${song.artist}</li>`
         )}
       </ul>
     `;
-  }
+  }  
 }
