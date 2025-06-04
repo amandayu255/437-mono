@@ -24,6 +24,13 @@
   --space-sm: 1rem;
   --space-md: 2rem;
   --space-lg: 4rem;
+
+  /* Card Overrides (light mode) */
+  --color-card-bg: white;
+  --color-card-text: #1a1a1a;
+
+  /* Header Link */
+  --color-header-link: #1b2e24;
 }
 
 /* Dark Mode */
@@ -36,4 +43,7 @@ body.dark-mode {
   --color-link: #63a191;
   --color-link-hover: #a8e3d3;
   --color-border: #2a4c42;
+  --color-card-bg: white;
+  --color-card-text: #1a1a1a;
+  --color-header-link: white;
 }
