@@ -7,15 +7,17 @@ import credentials from "../services/credential-svc";
 const router = express.Router();
 
 dotenv.config();
-const TOKEN_SECRET: string = process.env.TOKEN_SECRET || "NOT_A_SECRET";
+const TOP_SECRET: string = process.env.TOP_SECRET || "NOT_A_SECRET";
+console.log("JWT Secret (TOP_SECRET):", TOP_SECRET);
 
 function generateAccessToken(
   username: string
 ): Promise<String> {
+  console.log("Signing token for:", username);
   return new Promise((resolve, reject) => {
     jwt.sign(
       { username: username },
-      TOKEN_SECRET,
+      TOP_SECRET,
       { expiresIn: "1d" },
       (error, token) => {
         if (error) reject(error);
@@ -33,13 +35,19 @@ export function authenticateUser(
   const authHeader = req.headers["authorization"];
   // Getting the 2nd part of the auth header (the token)
   const token = authHeader && authHeader.split(" ")[1];
-
+  console.log("Auth Header:", authHeader);
+  console.log("Token extracted:", token);
   if (!token) {
     res.status(401).end();
   } else {
-    jwt.verify(token, TOKEN_SECRET, (error, decoded) => {
-      if (decoded) next();
-      else res.status(403).end();
+    jwt.verify(token, TOP_SECRET, (error, decoded) => {
+      if (decoded) {
+        console.log("✅ Token verified:", decoded);
+        next();
+      } else {
+        console.log("❌ Token verification failed:", error);
+        res.status(403).end();
+      }
     });
   }
 }
