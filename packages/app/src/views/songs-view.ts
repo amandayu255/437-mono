@@ -303,18 +303,32 @@ export class SongsViewElement extends View<Model, Msg> {
     }
   `;
 
+  // <button @click=${() => (window.location.href = "/app/songs")}>
+  //               Songs
+  //             </button>
+  //             <button @click=${this.goToGenres}>Genres</button>
+  //             <button @click=${this.goToAlbums}>Albums</button>
+  //             <button @click=${this.logout}>Logout</button>
+
   render() {
     return html`
       <div class="navbar">
         <div class="navbar-wrapper">
           <strong>Welcome to Musica</strong>
           <div class="nav-links">
-            <button @click=${() => (window.location.href = "/app/songs")}>
-              Songs
-            </button>
-            <button @click=${this.goToGenres}>Genres</button>
-            <button @click=${this.goToAlbums}>Albums</button>
-            <button @click=${this.logout}>Logout</button>
+
+            <mu-link href="/app/songs">
+              <button>Songs</button>
+            </mu-link>
+            <mu-link href="/app/genres">
+              <button>Genres</button>
+            </mu-link>
+            <mu-link href="/app/albums">
+              <button>Albums</button>
+            </mu-link>
+            <mu-link href="/logout">
+              <button>Logout</button>
+            </mu-link>
 
             <label class="toggle-label">
               <input

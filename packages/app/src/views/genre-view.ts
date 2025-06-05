@@ -252,35 +252,50 @@ export class GenreViewElement extends View<Model, Msg> {
       background-color: #666;
     }
   `;
-
+// <button @click=${() => (window.location.href = "/app/songs")}>
+//               Songs
+//             </button>
+//             <button @click=${() => (window.location.href = "/app/genres")}>
+//               Genres
+//             </button>
+//             <button @click=${() => (window.location.href = "/app/albums")}>
+//               Albums
+//             </button>
+//             <button
+//               @click=${() => {
+//                 localStorage.removeItem("token");
+//                 const event = new CustomEvent("auth:message", {
+//                   bubbles: true,
+//                   composed: true,
+//                   detail: ["auth/signout", { redirect: "/login" }],
+//                 });
+//                 this.dispatchEvent(event);
+//               }}
+//             >
+//               Logout
+//             </button>
   render() {
     return html`
       <div class="navbar">
         <div class="navbar-wrapper">
           <strong>Welcome to Musica</strong>
           <div class="nav-links">
-            <button @click=${() => (window.location.href = "/app/songs")}>
-              Songs
-            </button>
-            <button @click=${() => (window.location.href = "/app/genres")}>
-              Genres
-            </button>
-            <button @click=${() => (window.location.href = "/app/albums")}>
-              Albums
-            </button>
-            <button
-              @click=${() => {
-                localStorage.removeItem("token");
-                const event = new CustomEvent("auth:message", {
-                  bubbles: true,
-                  composed: true,
-                  detail: ["auth/signout", { redirect: "/login" }],
-                });
-                this.dispatchEvent(event);
-              }}
-            >
-              Logout
-            </button>
+
+            
+
+            <mu-link href="/app/songs">
+              <button>Songs</button>
+            </mu-link>
+            <mu-link href="/app/genres">
+              <button>Genres</button>
+            </mu-link>
+            <mu-link href="/app/albums">
+              <button>Albums</button>
+            </mu-link>
+            <mu-link href="/logout">
+              <button>Logout</button>
+            </mu-link>
+
             <label class="toggle-label">
               <input
                 type="checkbox"
