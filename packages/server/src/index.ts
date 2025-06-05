@@ -21,8 +21,18 @@ const staticDir = path.resolve(__dirname, "../../app/dist");
 app.use(express.json());
 app.use("/api/songs", songs);
 app.use("/auth", auth);
-app.use(express.static(staticDir));
-app.use(express.static("dist"));
+
+// app.use(express.static(staticDir));
+// app.use(express.static("dist"));
+
+app.use("/app", express.static(staticDir));
+
+app.get("/app/*", async (_req, res) => {
+  const indexHtml = path.resolve(staticDir, "index.html");
+  const html = await fs.readFile(indexHtml, "utf8");
+  res.send(html);
+});
+
 app.use("/api/albums", albumRoutes);
 app.use("/uploads", express.static("uploads"));
 app.use("/api/playlists", playlistRoutes);
