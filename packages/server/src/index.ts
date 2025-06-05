@@ -15,33 +15,30 @@ connect("musica");
 
 const app = express();
 const port = process.env.PORT || 3000;
+// const staticDir = process.env.STATIC || "public";
 const staticDir = path.resolve(__dirname, "../../app/dist");
 
 app.use(express.json());
-
-app.use("/auth", auth);
 app.use("/api/songs", songs);
+app.use("/auth", auth);
+
+app.use(express.static(staticDir));
+app.use(express.static("dist"));
+
 app.use("/api/albums", albumRoutes);
+app.use("/uploads", express.static("uploads"));
 app.use("/api/playlists", playlistRoutes);
 app.use("/api/genres", genreRoutes);
-app.use("/uploads", express.static("uploads"));
 
-app.use("/app", express.static(staticDir));
-
-app.get("/app/*", async (_req, res) => {
-  try {
-    const indexHtml = await fs.readFile(path.join(staticDir, "index.html"), "utf8");
-    res.send(indexHtml);
-  } catch (err) {
-    res.status(500).send("Error loading frontend.");
-  }
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 });
 
 app.get("/login", (_, res) => {
   res.sendFile(path.join(staticDir, "login.html"));
 });
 
-app.get("/songs", async (_req: Request, res: Response) => {
+app.get("/songs", async (req: Request, res: Response) => {
   try {
     const allSongs = await Songs.index();
     res.json(allSongs);
@@ -63,6 +60,8 @@ app.get("/songs/:title", async (req: Request, res: Response) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+app.use("/app", async (_req, res) => {
+  const indexHtml = path.resolve(staticDir, "index.html");
+  const html = await fs.readFile(indexHtml, "utf8");
+  res.send(html);
 });
