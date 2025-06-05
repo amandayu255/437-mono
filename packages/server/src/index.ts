@@ -16,7 +16,7 @@ connect("musica");
 const app = express();
 const port = process.env.PORT || 3000;
 // const staticDir = process.env.STATIC || "public";
-const staticDir = path.resolve(__dirname, "../../proto/dist");
+const staticDir = path.resolve(__dirname, "../../app/dist");
 
 app.use(express.json());
 app.use("/api/songs", songs);
