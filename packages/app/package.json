@@ -12,7 +12,8 @@
   "dependencies": {
     "@calpoly/mustang": "^1.0.15",
     "lit": "^3.3.0",
-    "server": "^1.0.0"
+    "server": "^1.0.0",
+    "tinyglobby": "^0.2.14"
   },
   "devDependencies": {
     "tsc": "^2.0.4",
