@@ -283,18 +283,18 @@ export class GenreViewElement extends View<Model, Msg> {
 
             
 
-            <mu-link href="/app/songs">
+            <a href="/app/songs">
               <button>Songs</button>
-            </mu-link>
-            <mu-link href="/app/genres">
+            </a>
+            <a href="/app/genres">
               <button>Genres</button>
-            </mu-link>
-            <mu-link href="/app/albums">
+            </a>
+            <a href="/app/albums">
               <button>Albums</button>
-            </mu-link>
-            <mu-link href="/logout">
+            </a>
+            <a href="/logout">
               <button>Logout</button>
-            </mu-link>
+            </a>
 
             <label class="toggle-label">
               <input

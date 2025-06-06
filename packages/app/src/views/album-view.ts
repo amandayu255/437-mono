@@ -222,46 +222,26 @@ export class AlbumViewElement extends View<Model, Msg> {
       color: #555;
     }
   `;
-  // <button @click=${() => (window.location.href = "/app/songs")}>
-  //               Songs
-  //             </button>
-  //             <button @click=${() => (window.location.href = "/app/genres")}>
-  //               Genres
-  //             </button>
-  //             <button @click=${() => (window.location.href = "/app/albums")}>
-  //               Albums
-  //             </button>
-  //             <button
-  //               @click=${() => {
-  //                 localStorage.removeItem("token");
-  //                 const event = new CustomEvent("auth:message", {
-  //                   bubbles: true,
-  //                   composed: true,
-  //                   detail: ["auth/signout", { redirect: "/login" }],
-  //                 });
-  //                 this.dispatchEvent(event);
-  //               }}
-  //             >
-  //               Logout
-  //             </button>
+
   render() {
     return html`
       <div class="navbar">
         <div class="navbar-wrapper">
           <strong>Welcome to Musica</strong>
           <div class="nav-links">
-            <mu-link href="/app/songs">
+          
+            <a href="/app/songs">
               <button>Songs</button>
-            </mu-link>
-            <mu-link href="/app/genres">
+            </a>
+            <a href="/app/genres">
               <button>Genres</button>
-            </mu-link>
-            <mu-link href="/app/albums">
+            </a>
+            <a href="/app/albums">
               <button>Albums</button>
-            </mu-link>
-            <mu-link href="/logout">
+            </a>
+            <a href="/logout">
               <button>Logout</button>
-            </mu-link>
+            </a>
 
             <label class="toggle-label">
               <input

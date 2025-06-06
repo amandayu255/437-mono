@@ -303,13 +303,18 @@ export class SongsViewElement extends View<Model, Msg> {
     }
   `;
 
-  // <button @click=${() => (window.location.href = "/app/songs")}>
-  //               Songs
-  //             </button>
-  //             <button @click=${this.goToGenres}>Genres</button>
-  //             <button @click=${this.goToAlbums}>Albums</button>
-  //             <button @click=${this.logout}>Logout</button>
-
+  // <mu-link href="/app/songs">
+  //               <button>Songs</button>
+  //             </mu-link>
+  //             <mu-link href="/app/genres">
+  //               <button>Genres</button>
+  //             </mu-link>
+  //             <mu-link href="/app/albums">
+  //               <button>Albums</button>
+  //             </mu-link>
+  //             <mu-link href="/logout">
+  //               <button>Logout</button>
+  //             </mu-link>
   render() {
     return html`
       <div class="navbar">
@@ -317,18 +322,18 @@ export class SongsViewElement extends View<Model, Msg> {
           <strong>Welcome to Musica</strong>
           <div class="nav-links">
 
-            <mu-link href="/app/songs">
+            <a href="/app/songs">
               <button>Songs</button>
-            </mu-link>
-            <mu-link href="/app/genres">
+            </a>
+            <a href="/app/genres">
               <button>Genres</button>
-            </mu-link>
-            <mu-link href="/app/albums">
+            </a>
+            <a href="/app/albums">
               <button>Albums</button>
-            </mu-link>
-            <mu-link href="/logout">
+            </a>
+            <a href="/logout">
               <button>Logout</button>
-            </mu-link>
+            </a>
 
             <label class="toggle-label">
               <input
