@@ -17,7 +17,7 @@ import "./views/album-edit";
 import "./views/genre-view";
 import "./views/genre-add";
 import "./views/genre-edit";
-import "./views/home-view";
+// import "./views/home-view";
 
 // ✅ DEFINE routes for <mu-switch>
 const routes = [

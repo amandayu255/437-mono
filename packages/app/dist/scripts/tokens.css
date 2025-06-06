@@ -1,0 +1,49 @@
+:root {
+  /* Backgrounds */
+  --color-background-page: #f5fdf6; /* light mint cream */
+  --color-background-header: #d0eadf; /* soft eucalyptus green */
+
+  /* Text Colors */
+  --color-text-default: #2e4635; /* rich moss green */
+  --color-text-header: #1b2e24; /* darker forest green */
+
+  /* Accent + Links */
+  --color-accent: #6a9c89; /* dusty sage */
+  --color-link: #4a7763; /* muted teal-green */
+  --color-link-hover: #88c9b5; /* light herbal mint */
+
+  /* Borders */
+  --color-border: #bdd7cc;
+
+  /* Font */
+  --font-family-base: "Karla", sans-serif;
+  --font-family-display: "DM Serif Display", serif;
+
+  /* Spacing Design */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+
+  /* Card Overrides (light mode) */
+  --color-card-bg: white;
+  --color-card-text: #1a1a1a;
+
+  /* Header Link */
+  --color-header-link: #1b2e24;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  --color-background-page: #0f2d25;
+  --color-background-header: #1c3b32;
+  --color-text-default: #e6f2ed;
+  --color-text-header: #f0fdf7;
+  --color-accent: #88c9b5;
+  --color-link: #63a191;
+  --color-link-hover: #a8e3d3;
+  --color-border: #2a4c42;
+  --color-card-bg: white;
+  --color-card-text: #1a1a1a;
+  --color-header-link: white;
+}
