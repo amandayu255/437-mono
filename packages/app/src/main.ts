@@ -19,6 +19,7 @@ import "./views/genre-add";
 import "./views/genre-edit";
 import "./views/home-view";
 
+// ✅ DEFINE routes for <mu-switch>
 const routes = [
   { path: "/app/songs", view: () => html`<songs-view></songs-view>` },
   { path: "/app/songs/add", view: () => html`<song-add></song-add>` },
@@ -40,23 +41,21 @@ const routes = [
   { path: "/register", view: () => html`<register-view></register-view>` },
 
   { path: "/", redirect: "/app/songs" },
-
   { path: "*", redirect: "/app/songs" }
 ];
 
 define({
   "mu-auth": Auth.Provider,
   "mu-history": History.Provider,
-  "mu-switch": class AppSwitch extends Switch.Element {
-    constructor() {
-      super(routes, "musica:history", "musica:auth");
-    }
-  },
   "mu-store": class AppStore extends Store.Provider<Model, Msg> {
     constructor() {
       super(update, init, "musica:auth");
     }
   },
-
+  "mu-switch": class AppSwitch extends Switch.Element {
+    constructor() {
+      super(routes, "musica:history", "musica:auth");
+    }
+  },
   "blazing-header": HeaderElement
 });
