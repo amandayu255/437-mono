@@ -122,11 +122,6 @@ export class SongAddElement extends View<Model, Msg> {
           </select>
 
           <input type="url" name="url" placeholder="Song URL (optional)" />
-          <input
-            type="url"
-            name="cover"
-            placeholder="Cover Image URL (optional)"
-          />
           <button type="submit">Add Song</button>
         </form>
         <p class="back-link"><a href="/app/songs">&#8592; Back to Songs</a></p>
