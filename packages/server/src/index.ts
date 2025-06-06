@@ -30,10 +30,6 @@ app.use("/uploads", express.static("uploads"));
 app.use("/api/playlists", playlistRoutes);
 app.use("/api/genres", genreRoutes);
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
-
 app.get("/login", (_, res) => {
   res.sendFile(path.join(staticDir, "login.html"));
 });
@@ -64,4 +60,8 @@ app.use("/app", async (_req, res) => {
   const indexHtml = path.resolve(staticDir, "index.html");
   const html = await fs.readFile(indexHtml, "utf8");
   res.send(html);
+});
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 });
