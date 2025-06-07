@@ -68,6 +68,10 @@ export class AlbumAddElement extends View<Model, Msg> {
     .back-link a:hover {
       text-decoration: underline;
     }
+
+    a.hidden-link {
+      display: none;
+    }
   `;
 
   render() {
@@ -82,28 +86,38 @@ export class AlbumAddElement extends View<Model, Msg> {
           <input name="cover" type="file" accept="image/*" />
           <button type="submit">Add</button>
         </form>
-        <p class="back-link"><a href="/app/albums">&#8592; Back to Albums</a></p>
+
+        <!-- Hidden redirect link -->
+        <a id="redirectLink" href="/app/albums" class="hidden-link">Go to Albums</a>
+
+        <p class="back-link">
+          <a href="/app/albums">&#8592; Back to Albums</a>
+        </p>
       </div>
     `;
   }
 
   save(event: Event) {
     event.preventDefault();
-    console.log("submitting…");
-  
+
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
-  
+
     fetch("/api/albums", {
       method: "POST",
-      body: formData
+      body: formData,
     })
-    .then((res) => {
-      if (!res.ok) throw new Error("Failed to add album");
-      history.back();
-    })
-    .catch(console.error);
-  }  
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to add album");
+
+        // Navigate using <a> tag
+        const link = this.renderRoot.querySelector(
+          "#redirectLink"
+        ) as HTMLAnchorElement;
+        if (link) link.click();
+      })
+      .catch(console.error);
+  }
 }
 
 define({ "album-add": AlbumAddElement });

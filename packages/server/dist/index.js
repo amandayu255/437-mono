@@ -30,7 +30,6 @@ var import_auth = __toESM(require("./routes/auth"));
 var import_path = __toESM(require("path"));
 var import_promises = __toESM(require("node:fs/promises"));
 var import_album = __toESM(require("./routes/album"));
-var import_playlist = __toESM(require("./routes/playlist"));
 var import_genre = __toESM(require("./routes/genre"));
 import_dotenv.default.config();
 (0, import_mongo.connect)("musica");
@@ -44,7 +43,6 @@ app.use(import_express.default.static(staticDir));
 app.use(import_express.default.static("dist"));
 app.use("/api/albums", import_album.default);
 app.use("/uploads", import_express.default.static("uploads"));
-app.use("/api/playlists", import_playlist.default);
 app.use("/api/genres", import_genre.default);
 app.get("/login", (_, res) => {
   res.sendFile(import_path.default.join(staticDir, "login.html"));
