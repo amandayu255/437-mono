@@ -54,7 +54,7 @@ app.get("/songs/:title", async (req: Request, res: Response) => {
   }
 });
 
-app.use("/app/*", async (_req, res) => {
+app.get("/app/*", async (_req, res) => {
   const indexHtml = path.resolve(staticDir, "index.html");
   const html = await fs.readFile(indexHtml, "utf8");
   res.send(html);
