@@ -47,21 +47,21 @@ export class SongsViewElement extends View<Model, Msg> {
     localStorage.setItem("dark-mode", String(checked));
   }
 
-  goToAddSong() {
-    window.location.href = "/app/songs/add";
-  }
+  // goToAddSong() {
+  //   window.location.href = "/app/songs/add";
+  // }
 
-  goToEditSong(id: string) {
-    window.location.href = `/app/songs/edit/${id}`;
-  }
+  // goToEditSong(id: string) {
+  //   window.location.href = `/app/songs/edit/${id}`;
+  // }
 
-  goToAlbums() {
-    window.location.href = "/app/albums";
-  }
+  // goToAlbums() {
+  //   window.location.href = "/app/albums";
+  // }
 
-  goToGenres() {
-    window.location.href = "/app/genres";
-  }
+  // goToGenres() {
+  //   window.location.href = "/app/genres";
+  // }
 
   async deleteSong(id: string) {
     if (!confirm("Are you sure you want to delete this song?")) return;
@@ -303,25 +303,12 @@ export class SongsViewElement extends View<Model, Msg> {
     }
   `;
 
-  // <mu-link href="/app/songs">
-  //               <button>Songs</button>
-  //             </mu-link>
-  //             <mu-link href="/app/genres">
-  //               <button>Genres</button>
-  //             </mu-link>
-  //             <mu-link href="/app/albums">
-  //               <button>Albums</button>
-  //             </mu-link>
-  //             <mu-link href="/logout">
-  //               <button>Logout</button>
-  //             </mu-link>
   render() {
     return html`
       <div class="navbar">
         <div class="navbar-wrapper">
           <strong>Welcome to Musica</strong>
           <div class="nav-links">
-
             <a href="/app/songs">
               <button>Songs</button>
             </a>
@@ -331,6 +318,7 @@ export class SongsViewElement extends View<Model, Msg> {
             <a href="/app/albums">
               <button>Albums</button>
             </a>
+
             <a href="/logout">
               <button>Logout</button>
             </a>
@@ -385,29 +373,24 @@ export class SongsViewElement extends View<Model, Msg> {
             )}
           </select>
 
-          <button @click=${this.goToAddSong}>Add Song</button>
+          <a href="/app/songs/add">
+            <button>Add Song</button>
+          </a>
         </div>
 
         <div class="grid">
           ${this.songs.map(
             (song) => html`
               <div class="card">
-                <img
-                  class="cover"
-                  src=${song.cover || "/images/default.jpg"}
-                  alt="Cover for ${song.title}"
-                />
                 <div class="info">
                   <div class="title">${song.title}</div>
                   <div class="artist">${song.artist}</div>
                 </div>
                 <div class="button-row">
-                  <button
-                    class="edit-btn"
-                    @click=${() => this.goToEditSong(song._id!)}
-                  >
-                    Edit
-                  </button>
+                  <a href=${`/app/songs/edit/${song._id}`}>
+                    <button class="edit-btn">Edit</button>
+                  </a>
+
                   <button
                     class="delete-btn"
                     @click=${() => this.deleteSong(song._id!)}

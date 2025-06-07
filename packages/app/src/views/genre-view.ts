@@ -93,13 +93,13 @@ export class GenreViewElement extends View<Model, Msg> {
     }
   }
 
-  goToAddGenre() {
-    window.location.href = "/app/genres/add";
-  }
+  // goToAddGenre() {
+  //   window.location.href = "/app/genres/add";
+  // }
 
-  goToEditGenre(id: string) {
-    window.location.href = `/app/genres/edit/${id}`;
-  }
+  // goToEditGenre(id: string) {
+  //   window.location.href = `/app/genres/edit/${id}`;
+  // }
 
   static styles = css`
     .navbar {
@@ -252,37 +252,13 @@ export class GenreViewElement extends View<Model, Msg> {
       background-color: #666;
     }
   `;
-// <button @click=${() => (window.location.href = "/app/songs")}>
-//               Songs
-//             </button>
-//             <button @click=${() => (window.location.href = "/app/genres")}>
-//               Genres
-//             </button>
-//             <button @click=${() => (window.location.href = "/app/albums")}>
-//               Albums
-//             </button>
-//             <button
-//               @click=${() => {
-//                 localStorage.removeItem("token");
-//                 const event = new CustomEvent("auth:message", {
-//                   bubbles: true,
-//                   composed: true,
-//                   detail: ["auth/signout", { redirect: "/login" }],
-//                 });
-//                 this.dispatchEvent(event);
-//               }}
-//             >
-//               Logout
-//             </button>
+
   render() {
     return html`
       <div class="navbar">
         <div class="navbar-wrapper">
           <strong>Welcome to Musica</strong>
           <div class="nav-links">
-
-            
-
             <a href="/app/songs">
               <button>Songs</button>
             </a>
@@ -331,12 +307,10 @@ export class GenreViewElement extends View<Model, Msg> {
                   <p>${this.getAlbumCountForGenre(genre.name)} album(s)</p>
                 </div>
                 <div class="button-row">
-                  <button
-                    class="edit-btn"
-                    @click=${() => this.goToEditGenre(genre._id!)}
-                  >
-                    Edit
-                  </button>
+                  <a href=${`/app/genres/edit/${genre._id}`}>
+                    <button class="edit-btn">Edit</button>
+                  </a>
+
                   <button
                     class="delete-btn"
                     @click=${() => this.deleteGenre(genre._id!)}

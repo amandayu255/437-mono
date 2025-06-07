@@ -8,6 +8,7 @@ interface Album {
   _id?: string;
   name: string;
   artist?: string;
+  genre?: string;
   year?: number;
   cover?: string;
 }
@@ -58,13 +59,14 @@ export class AlbumViewElement extends View<Model, Msg> {
     }
   }
 
-  goToAddAlbum() {
-    window.location.href = "/app/albums/add";
-  }
+  // goToAddAlbum() {
+  //   <a href="/app/songs"> "/app/albums/add" </a>
 
-  goToEditAlbum(id: string) {
-    window.location.href = `/app/albums/edit/${id}`;
-  }
+  // }
+
+  // goToEditAlbum(id: string) {
+  //   window.location.href = `/app/albums/edit/${id}`;
+  // }
 
   static styles = css`
     .navbar {
@@ -229,7 +231,6 @@ export class AlbumViewElement extends View<Model, Msg> {
         <div class="navbar-wrapper">
           <strong>Welcome to Musica</strong>
           <div class="nav-links">
-          
             <a href="/app/songs">
               <button>Songs</button>
             </a>
@@ -279,12 +280,10 @@ export class AlbumViewElement extends View<Model, Msg> {
                 <div class="title">${album.name}</div>
                 <div class="artist">${album.artist || "Unknown Artist"}</div>
                 <div class="button-row">
-                  <button
-                    class="edit-btn"
-                    @click=${() => this.goToEditAlbum(album._id!)}
-                  >
-                    Edit
-                  </button>
+                  <a href=${`/app/albums/edit/${album._id}`}>
+                    <button class="edit-btn">Edit</button>
+                  </a>
+
                   <button
                     class="delete-btn"
                     @click=${() => this.deleteAlbum(album._id!)}
