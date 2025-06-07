@@ -42,10 +42,10 @@ export function authenticateUser(
   } else {
     jwt.verify(token, TOP_SECRET, (error, decoded) => {
       if (decoded) {
-        console.log("✅ Token verified:", decoded);
+        console.log("Token verified:", decoded);
         next();
       } else {
-        console.log("❌ Token verification failed:", error);
+        console.log("Token verification failed:", error);
         res.status(403).end();
       }
     });
