@@ -4,7 +4,9 @@ export interface Album {
   _id?: string;
   name: string;
   artist?: string;
+  genre?: string;
   year?: number;
+  cover?: string;
 }
 
 const AlbumSchema = new mongoose.Schema<Album>({
