@@ -110,7 +110,6 @@ export class AlbumAddElement extends View<Model, Msg> {
       .then((res) => {
         if (!res.ok) throw new Error("Failed to add album");
 
-        // Navigate using <a> tag
         const link = this.renderRoot.querySelector(
           "#redirectLink"
         ) as HTMLAnchorElement;
