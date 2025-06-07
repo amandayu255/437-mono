@@ -26,9 +26,9 @@ const SongSchema = new import_mongoose.Schema(
   {
     title: { type: String, required: true },
     artist: { type: String, required: true },
-    album: { type: String, required: true },
-    cover: { type: String, required: true },
-    link: { type: String, required: true }
+    album: { type: String, required: false },
+    cover: { type: String, required: false },
+    link: { type: String, required: false }
   },
   { collection: "songs" }
 );

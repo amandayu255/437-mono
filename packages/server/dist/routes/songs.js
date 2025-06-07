@@ -43,8 +43,12 @@ router.get("/:id", (req, res) => {
   ).catch((err) => res.status(500).send(err));
 });
 router.post("/", (req, res) => {
+  console.log("POST /api/songs payload:", req.body);
   const newSong = req.body;
-  import_song_svc.default.create(newSong).then((song) => res.status(201).json(song)).catch((err) => res.status(500).send(err));
+  import_song_svc.default.create(newSong).then((song) => res.status(201).json(song)).catch((err) => {
+    console.error("Error creating song:", err);
+    res.status(500).send(err);
+  });
 });
 router.put("/:id", (req, res) => {
   import_song_svc.default.update(req.params.id, req.body).then(

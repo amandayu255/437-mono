@@ -64,10 +64,10 @@ function authenticateUser(req, res, next) {
   } else {
     import_jsonwebtoken.default.verify(token, TOP_SECRET, (error, decoded) => {
       if (decoded) {
-        console.log("\u2705 Token verified:", decoded);
+        console.log("Token verified:", decoded);
         next();
       } else {
-        console.log("\u274C Token verification failed:", error);
+        console.log("Token verification failed:", error);
         res.status(403).end();
       }
     });

@@ -36,7 +36,7 @@ import_dotenv.default.config();
 (0, import_mongo.connect)("musica");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
-const staticDir = import_path.default.resolve(__dirname, "../../app/dist");
+const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.json());
 app.use("/api/songs", import_songs.default);
 app.use("/auth", import_auth.default);
