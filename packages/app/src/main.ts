@@ -19,7 +19,6 @@ import "./views/genre-add";
 import "./views/genre-edit";
 // import "./views/home-view";
 
-// ✅ DEFINE routes for <mu-switch>
 const routes = [
   { path: "/app/songs", view: () => html`<songs-view></songs-view>` },
   { path: "/app/songs/add", view: () => html`<song-add></song-add>` },
