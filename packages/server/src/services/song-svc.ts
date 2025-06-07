@@ -1,19 +1,6 @@
-import { Schema, model } from "mongoose";
-import { Song } from "../models/song";
 import { Types } from "mongoose";
-
-const SongSchema = new Schema<Song>(
-  {
-    title: { type: String, required: true, trim: true },
-    artist: { type: String, required: true, trim: true },
-    album: { type: String, required: true, trim: true },
-    cover: { type: String, required: true },
-    link: { type: String, required: true },
-  },
-  { collection: "songs" }
-);
-
-const SongModel = model<Song>("Song", SongSchema);
+import { Song } from "../models/song";
+import SongModel from "../models/song";
 
 function index(): Promise<Song[]> {
   return SongModel.find();
