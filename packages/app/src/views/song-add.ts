@@ -137,9 +137,6 @@ export class SongAddElement extends View<Model, Msg> {
   `;
 
   render() {
-    const albums = this.model.albums;
-    const genres = this.model.genres;
-
     return html`
       <div class="container">
         <h2>Add New Song</h2>
