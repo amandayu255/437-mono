@@ -9,8 +9,6 @@ import "./views/register-view";
 import "./views/song-add";
 import "./views/song-edit";
 import "./views/songs-view";
-import "./views/playlist-view";
-import "./views/playlist-edit";
 import "./views/album-view";
 import "./views/album-add";
 import "./views/album-edit";
@@ -31,10 +29,6 @@ const routes = [
   { path: "/app/albums", view: () => html`<album-view></album-view>` },
   { path: "/app/albums/add", view: () => html`<album-add></album-add>` },
   { path: "/app/album/:albumId/edit", view: (params: any) => html`<album-edit album-id=${params.albumId}></album-edit>` },
-
-  { path: "/app/playlists", view: () => html`<playlist-view></playlist-view>` },
-  { path: "/app/playlist/:playlistId", view: (params: any) => html`<playlist-view playlist-id=${params.playlistId}></playlist-view>` },
-  { path: "/app/playlist/:playlistId/edit", view: (params: any) => html`<playlist-edit playlist-id=${params.playlistId}></playlist-edit>` },
 
   { path: "/login", view: () => html`<login-view></login-view>` },
   { path: "/register", view: () => html`<register-view></register-view>` },

@@ -7,7 +7,6 @@ import auth, { authenticateUser } from "./routes/auth";
 import path from "path";
 import fs from "node:fs/promises";
 import albumRoutes from "./routes/album";
-import playlistRoutes from "./routes/playlist";
 import genreRoutes from "./routes/genre";
 
 dotenv.config();
@@ -27,7 +26,6 @@ app.use(express.static("dist"));
 
 app.use("/api/albums", albumRoutes);
 app.use("/uploads", express.static("uploads"));
-app.use("/api/playlists", playlistRoutes);
 app.use("/api/genres", genreRoutes);
 
 app.get("/login", (_, res) => {

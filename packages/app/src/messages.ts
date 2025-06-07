@@ -1,4 +1,4 @@
-import { Song, Playlist, Album, Genre } from "server/models";
+import { Song, Album, Genre } from "server/models";
 
 export type Msg =
   | ["songs/load", {}]
@@ -19,16 +19,6 @@ export type Msg =
       "songs/add",
       {
         song: Song;
-        onSuccess?: () => void;
-        onFailure?: (err: Error) => void;
-      }
-    ]
-  | ["playlist/select", { playlistId: string }]
-  | [
-      "playlist/save",
-      {
-        playlistId: string;
-        playlist: Playlist;
         onSuccess?: () => void;
         onFailure?: (err: Error) => void;
       }

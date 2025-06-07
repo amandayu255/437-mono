@@ -2,8 +2,52 @@ import { html, css } from "lit";
 import { define, View } from "@calpoly/mustang";
 import { Model } from "../model";
 import { Msg } from "../messages";
+import { state } from "lit/decorators.js";
+import type { Song } from "server/models";
 
 export class SongAddElement extends View<Model, Msg> {
+  @state() selectedAlbum = "";
+  @state() selectedGenre = "";
+  @state() songs: Song[] = [];
+  darkMode = localStorage.getItem("dark-mode") === "true";
+
+  constructor() {
+    super("musica:model");
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.dispatchMessage(["albums/load", {}]);
+    this.dispatchMessage(["genres/load", {}]);
+  }
+
+  async loadSongs() {
+    try {
+      const res = await fetch("/api/songs");
+      if (!res.ok) throw new Error("Failed to fetch songs");
+      this.songs = await res.json();
+    } catch (err) {
+      console.error("Error loading songs:", err);
+    }
+  }
+
+  logout() {
+    localStorage.removeItem("token");
+    const event = new CustomEvent("auth:message", {
+      bubbles: true,
+      composed: true,
+      detail: ["auth/signout", { redirect: "/login" }],
+    });
+    this.dispatchEvent(event);
+  }
+
+  toggleDarkMode(e: Event) {
+    const checked = (e.target as HTMLInputElement).checked;
+    this.darkMode = checked;
+    document.body.classList.toggle("dark-mode", checked);
+    localStorage.setItem("dark-mode", String(checked));
+  }
+
   static styles = css`
     .container {
       display: flex;
@@ -38,7 +82,6 @@ export class SongAddElement extends View<Model, Msg> {
       background: white;
     }
 
-    /* Style only the album and genre dropdowns */
     select[name="album"],
     select[name="genre"] {
       padding: 0.75rem 1rem;
@@ -93,11 +136,10 @@ export class SongAddElement extends View<Model, Msg> {
     }
   `;
 
-  constructor() {
-    super("musica:model");
-  }
-
   render() {
+    const albums = this.model.albums;
+    const genres = this.model.genres;
+
     return html`
       <div class="container">
         <h2>Add New Song</h2>
@@ -108,16 +150,14 @@ export class SongAddElement extends View<Model, Msg> {
           <select name="album">
             <option value="">Select Album (optional)</option>
             ${this.model.albums?.map(
-              (album) =>
-                html`<option value=${album.name}>${album.name}</option>`
+              (a) => html`<option value=${a.name}>${a.name}</option>`
             )}
           </select>
 
           <select name="genre">
             <option value="">Select Genre (optional)</option>
             ${this.model.genres?.map(
-              (genre) =>
-                html`<option value=${genre.name}>${genre.name}</option>`
+              (g) => html`<option value=${g.name}>${g.name}</option>`
             )}
           </select>
 

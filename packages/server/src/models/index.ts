@@ -9,12 +9,5 @@ export interface Song {
   _id?: string;
 }
 
-export interface Playlist {
-  name: string;
-  description?: string;
-  songIds: string[];
-  _id?: string;
-}
-
 export type { Album } from "./album";
 export type { Genre } from "./genre";
