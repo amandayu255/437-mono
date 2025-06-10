@@ -1,9 +1,0 @@
-{
-  "users": [{ "href": "/user.html", "label": "User: Amanda Yu" }],
-  "playlists": [
-    { "href": "/playlist.html", "label": "Playlist: Pop Playlist" },
-    { "href": "/playlist-jazz.html", "label": "Playlist: Jazz Vibes" },
-    { "href": "/playlist-rock.html", "label": "Playlist: Rock Classics" },
-    { "href": "/playlist-chill.html", "label": "Playlist: Study Chill" }
-  ]
-}
