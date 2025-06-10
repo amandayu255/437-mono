@@ -98,25 +98,32 @@ export class AlbumAddElement extends View<Model, Msg> {
     `;
   }
 
-  save(event: Event) {
-    event.preventDefault();
+  async save(e: Event) {
+    e.preventDefault();
 
-    const form = event.target as HTMLFormElement;
+    const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
 
-    fetch("/api/albums", {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to add album");
+    try {
+      const res = await fetch("/api/albums", {
+        method: "POST",
+        body: formData,
+      });
 
-        const link = this.renderRoot.querySelector(
-          "#redirectLink"
-        ) as HTMLAnchorElement;
-        if (link) link.click();
-      })
-      .catch(console.error);
+      if (!res.ok) throw new Error("Failed to add album");
+
+      const link = this.renderRoot?.querySelector(
+        "#redirectLink"
+      ) as HTMLAnchorElement;
+      if (link) {
+        link.dispatchEvent(
+          new MouseEvent("click", { bubbles: true, composed: true })
+        );
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error submitting form.");
+    }
   }
 }
 
