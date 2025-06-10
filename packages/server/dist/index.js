@@ -35,17 +35,12 @@ import_dotenv.default.config();
 (0, import_mongo.connect)("musica");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
-const staticDir = import_path.default.resolve(__dirname, "../../app/dist");
+const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.json());
 app.use("/api/songs", import_songs.default);
 app.use("/auth", import_auth.default);
-console.log("[DEBUG] Using staticDir:", staticDir);
-try {
-  app.use(import_express.default.static(staticDir));
-} catch (err) {
-  console.error("[FATAL] Error while mounting staticDir:", err);
-  process.exit(1);
-}
+app.use(import_express.default.static(staticDir));
+app.use(import_express.default.static("dist"));
 app.use("/api/albums", import_album.default);
 app.use("/uploads", import_express.default.static("uploads"));
 app.use("/api/genres", import_genre.default);
@@ -72,14 +67,10 @@ app.get("/songs/:title", async (req, res) => {
     res.status(500).send("Error retrieving song.");
   }
 });
-app.get("/app/*", async (_req, res) => {
+app.use("/app", async (_req, res) => {
   const indexHtml = import_path.default.resolve(staticDir, "index.html");
   const html = await import_promises.default.readFile(indexHtml, "utf8");
   res.send(html);
-});
-console.log("Registered routes:");
-app._router.stack.filter((r) => r.route).forEach((r) => {
-  console.log(`- ${r.route.stack[0].method.toUpperCase()} ${r.route.path}`);
 });
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
