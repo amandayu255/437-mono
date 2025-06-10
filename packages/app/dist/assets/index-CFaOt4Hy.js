@@ -1101,7 +1101,7 @@ Expecting `+Oe.join(", ")+", got '"+(this.terminals_[x]||x)+"'":Xe="Parse error 
   `;let Ae=Nt;os([w()],Ae.prototype,"albums");os([w()],Ae.prototype,"darkMode");customElements.define("album-view",Ae);const jt=class jt extends E{constructor(){super("musica:model")}render(){return b`
       <div class="container">
         <h2>Add Album</h2>
-        <form @submit=${this.save}>
+        <form @submit=${this.save} enctype="multipart/form-data">
           <input name="name" placeholder="Album Name" required />
           <input name="artist" placeholder="Artist" required />
           <input name="year" type="number" placeholder="Year" required />
@@ -1110,8 +1110,9 @@ Expecting `+Oe.join(", ")+", got '"+(this.terminals_[x]||x)+"'":Xe="Parse error 
           <button type="submit">Add</button>
         </form>
 
-        <!-- Hidden redirect link -->
-        <a id="redirectLink" href="/app/albums" class="hidden-link">Go to Albums</a>
+        <a id="redirectLink" href="/app/albums" class="hidden-link"
+          >Go to Albums</a
+        >
 
         <p class="back-link">
           <a href="/app/albums">&#8592; Back to Albums</a>
