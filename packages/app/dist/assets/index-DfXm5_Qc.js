@@ -1118,7 +1118,7 @@ Expecting `+Oe.join(", ")+", got '"+(this.terminals_[x]||x)+"'":Xe="Parse error 
           <a href="/app/albums">&#8592; Back to Albums</a>
         </p>
       </div>
-    `}save(e){e.preventDefault();const t=e.target,s=new FormData(t);fetch("/api/albums",{method:"POST",body:s}).then(r=>{if(!r.ok)throw new Error("Failed to add album");const o=this.renderRoot.querySelector("#redirectLink");o&&o.click()}).catch(console.error)}};jt.styles=k`
+    `}async save(e){var r;e.preventDefault();const t=e.target,s=new FormData(t);try{if(!(await fetch("/api/albums",{method:"POST",body:s})).ok)throw new Error("Failed to add album");const i=(r=this.renderRoot)==null?void 0:r.querySelector("#redirectLink");i&&i.dispatchEvent(new MouseEvent("click",{bubbles:!0,composed:!0}))}catch(o){console.error(o),alert("Error submitting form.")}}};jt.styles=k`
     .container {
       display: flex;
       flex-direction: column;

@@ -36,14 +36,14 @@ import_dotenv.default.config();
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
+app.use("/api/albums", import_album.default);
+app.use("/uploads", import_express.default.static("uploads"));
+app.use("/api/genres", import_genre.default);
 app.use(import_express.default.json());
 app.use("/api/songs", import_songs.default);
 app.use("/auth", import_auth.default);
 app.use(import_express.default.static(staticDir));
 app.use(import_express.default.static("dist"));
-app.use("/api/albums", import_album.default);
-app.use("/uploads", import_express.default.static("uploads"));
-app.use("/api/genres", import_genre.default);
 app.get("/login", (_, res) => {
   res.sendFile(import_path.default.join(staticDir, "login.html"));
 });
