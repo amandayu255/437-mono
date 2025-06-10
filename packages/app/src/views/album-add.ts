@@ -78,7 +78,7 @@ export class AlbumAddElement extends View<Model, Msg> {
     return html`
       <div class="container">
         <h2>Add Album</h2>
-        <form @submit=${this.save}>
+        <form @submit=${this.save} enctype="multipart/form-data">
           <input name="name" placeholder="Album Name" required />
           <input name="artist" placeholder="Artist" required />
           <input name="year" type="number" placeholder="Year" required />
@@ -87,8 +87,9 @@ export class AlbumAddElement extends View<Model, Msg> {
           <button type="submit">Add</button>
         </form>
 
-        <!-- Hidden redirect link -->
-        <a id="redirectLink" href="/app/albums" class="hidden-link">Go to Albums</a>
+        <a id="redirectLink" href="/app/albums" class="hidden-link"
+          >Go to Albums</a
+        >
 
         <p class="back-link">
           <a href="/app/albums">&#8592; Back to Albums</a>
