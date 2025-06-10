@@ -28,7 +28,7 @@ var import_song_svc = __toESM(require("./services/song-svc"));
 var import_songs = __toESM(require("./routes/songs"));
 var import_auth = __toESM(require("./routes/auth"));
 var import_path = __toESM(require("path"));
-var import_promises = __toESM(require("node:fs/promises"));
+var import_promises = require("node:fs/promises");
 var import_album = __toESM(require("./routes/album"));
 var import_genre = __toESM(require("./routes/genre"));
 import_dotenv.default.config();
@@ -36,11 +36,12 @@ import_dotenv.default.config();
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
+app.use(import_express.default.json());
+app.use(import_express.default.urlencoded({ extended: true }));
+app.use("/api/songs", import_songs.default);
 app.use("/api/albums", import_album.default);
 app.use("/uploads", import_express.default.static("uploads"));
 app.use("/api/genres", import_genre.default);
-app.use(import_express.default.json());
-app.use("/api/songs", import_songs.default);
 app.use("/auth", import_auth.default);
 app.use(import_express.default.static(staticDir));
 app.use(import_express.default.static("dist"));
@@ -67,10 +68,15 @@ app.get("/songs/:title", async (req, res) => {
     res.status(500).send("Error retrieving song.");
   }
 });
-app.use("/app", async (_req, res) => {
+app.use(async (_req, res) => {
   const indexHtml = import_path.default.resolve(staticDir, "index.html");
-  const html = await import_promises.default.readFile(indexHtml, "utf8");
-  res.send(html);
+  try {
+    const html = await (0, import_promises.readFile)(indexHtml, "utf8");
+    res.status(200).send(html);
+  } catch (err) {
+    console.error("Failed to read index.html:", err);
+    res.status(500).send("Server error");
+  }
 });
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

@@ -5,7 +5,8 @@ import Songs from "./services/song-svc";
 import songs from "./routes/songs";
 import auth, { authenticateUser } from "./routes/auth";
 import path from "path";
-import fs from "node:fs/promises";
+// import fs from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import albumRoutes from "./routes/album";
 import genreRoutes from "./routes/genre";
 
@@ -55,10 +56,20 @@ app.get("/songs/:title", async (req: Request, res: Response) => {
   }
 });
 
-app.use("/app", async (_req, res) => {
+// app.use("/app", async (_req, res) => {
+//   const indexHtml = path.resolve(staticDir, "index.html");
+//   const html = await fs.readFile(indexHtml, "utf8");
+//   res.send(html);
+// });
+app.use(async (_req, res) => {
   const indexHtml = path.resolve(staticDir, "index.html");
-  const html = await fs.readFile(indexHtml, "utf8");
-  res.send(html);
+  try {
+    const html = await readFile(indexHtml, "utf8");
+    res.status(200).send(html);
+  } catch (err) {
+    console.error("Failed to read index.html:", err);
+    res.status(500).send("Server error");
+  }
 });
 
 app.listen(port, () => {
