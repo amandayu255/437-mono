@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Music App</title>
+
+    <!-- Fonts & Styles -->
+    <link rel="stylesheet" href="/scripts/reset.css" />
+    <link rel="stylesheet" href="/scripts/tokens.css" />
+    <link rel="stylesheet" href="/scripts/page.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Karla:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      .welcome-link {
+        color: var(--color-header-link);
+        text-decoration: none;
+        font-weight: bold;
+        position: absolute;
+        top: 1.5rem;
+        left: 1rem;
+      }
+    </style>
+    
+    <script type="module" crossorigin src="/assets/index-DtyIqL4P.js"></script>
+  </head>
+
+  <body>
+    <mu-history provides="musica:history">
+      <mu-auth provides="musica:auth" redirect="/login">
+        <mu-store provides="musica:model">
+          <article class="page">
+            <blz-header>
+              <a href="/app/songs" slot="actuator" class="welcome-link">Welcome to Musica</a>
+            </blz-header>
+
+            <label class="toggle-label" id="dark-mode-toggle">
+              <input type="checkbox" class="toggle-input" autocomplete="off" />
+              <span class="toggle-slider">Dark Mode</span>
+            </label>
+
+            <mu-switch></mu-switch>
+          </article>
+        </mu-store>
+
+
+      </mu-auth>
+    </mu-history>
+    <script type="module" src="/scripts/darkmode.js"></script>
+  </body>
+</html>
