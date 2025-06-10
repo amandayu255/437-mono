@@ -17,12 +17,13 @@ const port = process.env.PORT || 3000;
 const staticDir = process.env.STATIC || "public";
 // const staticDir = path.resolve(__dirname, "../../app/dist");
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/api/songs", songs);
 app.use("/api/albums", albumRoutes);
 app.use("/uploads", express.static("uploads"));
 app.use("/api/genres", genreRoutes);
-
-app.use(express.json());
-app.use("/api/songs", songs);
 app.use("/auth", auth);
 
 app.use(express.static(staticDir));
